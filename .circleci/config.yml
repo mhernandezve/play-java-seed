@@ -40,3 +40,20 @@ jobs:
 
       # run tests!
       - run: cat /dev/null | sbt test:test
+
+      # create artifact!
+      - run: cat /dev/null | sbt test:dist
+
+      - run:
+          name: Creating Artifacts
+          command: |
+            cp ./target/universal/play-java-seed-1.0-SNAPSHOT.zip /tmp/play-java-seed-1.0-SNAPSHOT.zip
+            mkdir /tmp/artifacts;
+            cp ./target/universal/play-java-seed-1.0-SNAPSHOT.zip /tmp/artifacts/play-java-seed-1.0-SNAPSHOT.zip
+
+      - store_artifacts:
+          path: /tmp/play-java-seed-1.0-SNAPSHOT.zip
+          destination: artifact-file
+
+      - store_artifacts:
+          path: /tmp/artifacts
